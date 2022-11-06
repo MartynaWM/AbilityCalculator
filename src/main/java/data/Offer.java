@@ -1,7 +1,5 @@
 package data;
 
-
-
 public class Offer {
     private final int maxLoanPeriod;
 
@@ -9,6 +7,17 @@ public class Offer {
 
     private final double maxCreditAmount;
 
+    public int getMaxLoanPeriod() {
+        return maxLoanPeriod;
+    }
+
+    public double getMaxMonthlyInstalment() {
+        return maxMonthlyInstalment;
+    }
+
+    public double getMaxCreditAmount() {
+        return maxCreditAmount;
+    }
 
     public Offer(int maxLoanPeriod, double maxMonthlyInstalment, double maxCreditAmount) {
         this.maxLoanPeriod = maxLoanPeriod;
@@ -28,7 +37,7 @@ public class Offer {
         if (maxLoanPeriod >= 13 && maxLoanPeriod <= 36) {
             return "Your Offer for loan period for (12 to " + maxLoanPeriod + "] months is: \n" +
                 "maxLoanPeriod=" + maxLoanPeriod + ",\n" +
-                "maxMonthlyInstalment=" + maxMonthlyInstalment +",\n" +
+                "maxMonthlyInstalment=" + maxMonthlyInstalment + ",\n" +
                 "maxCreditAmount=" + maxCreditAmount + ".\n";
         }
         if (maxLoanPeriod >= 37 && maxLoanPeriod <= 60) {

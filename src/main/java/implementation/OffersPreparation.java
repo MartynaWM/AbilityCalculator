@@ -11,7 +11,6 @@ import java.util.List;
 import static data.ConstantData.MAX_LOAN_PERIOD_1;
 import static data.ConstantData.MAX_LOAN_PERIOD_2;
 import static data.ConstantData.MAX_LOAN_PERIOD_3;
-import static data.ConstantData.MIN_LOAN_AMOUNT;
 
 public class OffersPreparation {
     private final MaxMonthlyInstalmentCalculation maxMonthlyInstalmentCalculation = new MaxMonthlyInstalmentCalculation();
@@ -20,6 +19,7 @@ public class OffersPreparation {
 
     private final List<Offer> offers = new ArrayList<>();
 
+    private final LoanAmountChecker loanAmountChecker = new LoanAmountChecker();
 
     public List<Offer> prepareOffers(int maxLoanPeriod, UserData userData) {
 
@@ -57,7 +57,7 @@ public class OffersPreparation {
         double maxLoanAmount = maxLoanAmountCalculation.calculateMaxLoanAmount(userData.getSumOfCreditBalances(),
             maxMonthlyInstalment, maxLoanPeriod);
         try {
-            checkMaxLoanAmount(maxLoanAmount);
+            loanAmountChecker.checkMaxLoanAmount(maxLoanAmount);
         } catch (NoAbilityException exception) {
 
             System.out.println(exception.getMessage());
@@ -70,11 +70,4 @@ public class OffersPreparation {
         Offer offer = new Offer(maxLoanPeriod, maxMonthlyInstalment, maxLoanAmount);
         offers.add(offer);
     }
-
-    private void checkMaxLoanAmount(double maxLoanAmount) throws NoAbilityException {
-        if (maxLoanAmount < MIN_LOAN_AMOUNT) {
-            throw new NoAbilityException("Sorry, we have no offer for you, you have no available credit capacity");
-        }
-    }
-
 }
